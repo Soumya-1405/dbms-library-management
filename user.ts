@@ -16,6 +16,7 @@ export const userModel = (sequelize:any) => {
         },
         {
           // Other model options go here
+          timestamps: false,
         },
       );
 }
