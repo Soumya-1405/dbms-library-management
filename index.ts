@@ -1,5 +1,4 @@
 const { Sequelize } = require('sequelize');
-// import { userModel } from "./user";
 import { userModel } from "./user";
 const Connection = async () => {
   const sequelize = new Sequelize("school_db", "postgres", "1405", {
