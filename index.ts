@@ -6,11 +6,9 @@ const Connection = async () => {
     dialect: "postgres",
     port: 5433,
   });
-  let User = null;
   try {
     await sequelize.authenticate();
     console.log("Connection has been established successfully.");
-    
     await userModel(sequelize).sync({ force: true });
     console.log("The table for the User model was just (re)created!");
   } catch (error) {
