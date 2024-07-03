@@ -13,6 +13,13 @@ export const Loan = sequelize.define(
       autoIncrement: true,
       allowNull: false,
     }, 
+    book_id:{
+      type: DataTypes.INTEGER,
+      references: {
+          model: Book,
+          key: 'id'
+      }
+    },
     member_id: {
       type: DataTypes.INTEGER,
       references: {
@@ -21,15 +28,16 @@ export const Loan = sequelize.define(
       }
     },
     loan_date: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4
+      type: DataTypes.DATE,
+      allowNull: false,
     },
     due_date: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4
+      type: DataTypes.DATE,
+      allowNull: false,
     },
   },
   {
+    timestamps: false,
     tableName:'Loan'
   },
 );
