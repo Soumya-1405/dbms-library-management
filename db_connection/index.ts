@@ -1,9 +1,9 @@
 // const { Sequelize } = require("sequelize");
-import { Book } from "../models/book";
-import { Loan } from "../models/loan";
-import { Member } from "../models/member";
-import { Author } from "../models/author";
-import { Reservation } from "../models/reservation";
+import { Book } from "../models/bookModel/book";
+import { Loan } from "../models/loanModel/loan";
+import { Member } from "../models/memberModel/member";
+import { Author } from "../models/authorModel/author";
+import { Reservation } from "../models/resevationModel/reservation";
 import {sequelize} from './config'
 // const sequelize = new Sequelize("school_db", "postgres", "1405", {
 //   host: "localhost",
