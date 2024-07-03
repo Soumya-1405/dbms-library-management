@@ -15,7 +15,6 @@ const Connection = async () => {
   try {
     await sequelize.authenticate();
     console.log("Connection has been established successfully.");
-    await sequelize.sync({ force: true });
     await Author.sync().then(()=>{console.log("hiii")}).catch((err:any)=>{console.log("bye")});
     await Book.sync().then(()=>{console.log("hiii")}).catch((err:any)=>{console.log("bye")});;
     await Member.sync().then(()=>{console.log("hiii")}).catch((err:any)=>{console.log("bye")});;
