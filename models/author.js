@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Author = void 0;
-var db_connection_1 = require("../db_connection");
-var sequelize_1 = require("sequelize");
-exports.Author = db_connection_1.default.define("Author", {
+//import sequelize from "../db_connection";
+const sequelize_1 = require("sequelize");
+const config_1 = require("../db_connection/config");
+exports.Author = config_1.sequelize.define("Author", {
     id: {
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: false,
@@ -21,6 +22,4 @@ exports.Author = db_connection_1.default.define("Author", {
     },
 }, {
     timestamps: false,
-}, {
-    tableName: 'Authors'
 });

@@ -1,14 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Reservation = void 0;
-var sequelize_1 = require("sequelize");
-var db_connection_1 = require("../db_connection");
-var book_1 = require("./book");
-var member_1 = require("./member");
-// import sequelize from "../Configuration/dbConfig"
-// import {Books} from './BookModel';
-// import { Members } from "./MembersModel";
-exports.Reservation = db_connection_1.default.define('Reservation', {
+const sequelize_1 = require("sequelize");
+// import sequelize from "../db_connection/index";
+const book_1 = require("./book");
+const config_1 = require("../db_connection/config");
+exports.Reservation = config_1.sequelize.define('Reservation', {
     id: {
         type: sequelize_1.DataTypes.INTEGER,
         primaryKey: true,
@@ -23,10 +20,10 @@ exports.Reservation = db_connection_1.default.define('Reservation', {
     },
     member_id: {
         type: sequelize_1.DataTypes.INTEGER,
-        references: {
-            model: member_1.Member,
-            key: 'id'
-        }
+        // references: {
+        //     model: Member,
+        //     key: 'id'
+        // }
     },
     reservation_date: {
         type: sequelize_1.DataTypes.DATE,
