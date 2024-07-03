@@ -5,6 +5,7 @@ import { Member } from "../models/memberModel/member";
 import { Author } from "../models/authorModel/author";
 import { Reservation } from "../models/resevationModel/reservation";
 import {sequelize} from './config'
+import { insertBooksData } from "../models/bookModel/insertData";
 // const sequelize = new Sequelize("school_db", "postgres", "1405", {
 //   host: "localhost",
 //   dialect: "postgres",
@@ -21,6 +22,9 @@ const Connection = async () => {
     await Loan.sync().then(()=>{console.log("hiii")}).catch((err:any)=>{console.log("bye")});;
     await Reservation.sync().then(()=>{console.log("hiii")}).catch((err:any)=>{console.log("bye")});;
     console.log("sync succesfull");
+
+    insertBooksData();
+    console.log("booksdata inserted successfully");
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }
