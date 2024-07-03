@@ -6,7 +6,7 @@ import { Member } from "../models/member";
 import { Author } from "../models/author";
 // import { userModel } from "../models/user";
 
- const sequelize = new Sequelize("school_db", "postgres", "1405", {
+const sequelize = new Sequelize("school_db", "postgres", "1405", {
   host: "localhost",
   dialect: "postgres",
   port: 5433,
@@ -14,11 +14,12 @@ import { Author } from "../models/author";
 
 const Connection = async () => {
   try {
-    await sequelize.authenticate();
+    // await sequelize.authenticate();
     console.log("Connection has been established successfully.");
+    await Author.drop();
     // await sequelize.sync({ force: true });
-   
-    await Loan.sync({force:true})
+    // await Book.drop();
+    // await Loan.sync({force:true})
     console.log("sync succesfull");
     // await authorModel(sequelize).sync({ force: true });
     // console.log("hellooo");
