@@ -2,9 +2,6 @@ import { Model,DataTypes } from "sequelize";
 import sequelize from "../db_connection";
 import { Book } from "./book";
 import { Member } from "./member";
-// import sequelize from "../Configuration/dbConfig"
-// import {Books} from './BookModel';
-// import { Members } from "./MembersModel";
 
 export const Reservation = sequelize.define('Reservation',{
     id:{
