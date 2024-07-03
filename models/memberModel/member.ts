@@ -24,5 +24,6 @@ export const Member = sequelize.define('Member',{
         unique:true
     }
 },{
+    timestamps: false,
     tableName:'Members'
 })
