@@ -1,11 +1,9 @@
 // const { Sequelize } = require("sequelize");
-// import { authorModel } from "../models/author";
 import { Book } from "../models/book";
 import { Loan } from "../models/loan";
 import { Member } from "../models/member";
 import { Author } from "../models/author";
 import { Reservation } from "../models/reservation";
-// import { userModel } from "../models/user";
 import {sequelize} from './config'
 // const sequelize = new Sequelize("school_db", "postgres", "1405", {
 //   host: "localhost",
@@ -23,9 +21,6 @@ const Connection = async () => {
     await Member.sync().then(()=>{console.log("hiii")}).catch((err:any)=>{console.log("bye")});;
     await Loan.sync().then(()=>{console.log("hiii")}).catch((err:any)=>{console.log("bye")});;
     await Reservation.sync().then(()=>{console.log("hiii")}).catch((err:any)=>{console.log("bye")});;
-    // await Author.drop();
-    // await Book.drop();
-    // await Book.sync({force:true})
     console.log("sync succesfull");
   } catch (error) {
     console.error("Unable to connect to the database:", error);
