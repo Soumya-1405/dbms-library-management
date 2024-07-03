@@ -21,12 +21,12 @@ export const Loan = sequelize.define(
       }
     },
     loan_date: {
-      type: DataTypes.DATE,
-      allowNull: false,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4
     },
     due_date: {
-      type: DataTypes.DATE,
-      allowNull: false,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4
     },
   },
   {
