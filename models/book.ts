@@ -1,4 +1,4 @@
-import sequelize = require("../db_connection");
+import sequelize from "../db_connection";
 import { DataTypes } from "sequelize";
 export const Book = sequelize.define(
         'Book',
