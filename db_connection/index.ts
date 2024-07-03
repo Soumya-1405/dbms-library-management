@@ -35,14 +35,4 @@ Connection();
 module.exports = Sequelize;
 export default sequelize;
 
-export function define(arg0: string, arg1: {
-  id: { type: import("sequelize").IntegerDataTypeConstructor; allowNull: boolean; autoIncrement: boolean; primaryKey: boolean; }; title: { type: import("sequelize").StringDataTypeConstructor; }; authorId: { type: import("sequelize").IntegerDataTypeConstructor; }; genre: { type: import("sequelize").StringDataTypeConstructor; }; isbn: { // await authorModel(sequelize).sync({ force: true });
-    // console.log("hellooo");
-    // await Loan.sync({ force: true });
-    // const users = await bookModel(sequelize).bulkCreate(data);
-    type: import("sequelize").StringDataTypeConstructor;
-  }; publication_year: { type: import("sequelize").IntegerDataTypeConstructor; };
-}, arg2: { timestamps: boolean; }, arg3: { tableName: string; }) {
-  throw new Error("Function not implemented.");
-}
-// export {};
+
