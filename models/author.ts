@@ -23,7 +23,7 @@ export const Author = sequelize.define(
       timestamps: false,
     },
     {
-      tableName:'Books'
+      tableName:'Authors'
     }
   
   );

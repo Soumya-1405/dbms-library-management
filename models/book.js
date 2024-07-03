@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Book = void 0;
-var sequelize = require("../db_connection");
+var db_connection_1 = require("../db_connection");
 var sequelize_1 = require("sequelize");
-exports.Book = sequelize.define('Book', {
+exports.Book = db_connection_1.default.define('Book', {
     id: {
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: false,

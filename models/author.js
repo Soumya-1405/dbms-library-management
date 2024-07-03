@@ -22,5 +22,5 @@ exports.Author = db_connection_1.default.define("Author", {
 }, {
     timestamps: false,
 }, {
-    tableName: 'Books'
+    tableName: 'Authors'
 });
