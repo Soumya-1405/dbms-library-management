@@ -1,5 +1,9 @@
-import sequelize from "../db_connection";
-import { DataTypes } from "sequelize";
+// import sequelize from "../db_connection/index";
+import { Sequelize, DataTypes } from "sequelize";
+
+
+import {sequelize} from '../db_connection/config'
+
 export const Book = sequelize.define(
         'Book',
         {
@@ -29,8 +33,6 @@ export const Book = sequelize.define(
         },
         {
           timestamps: false,
-        },
-        {
-        tableName:'Books'
+          tableName:'Books'
         }
       );

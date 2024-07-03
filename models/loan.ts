@@ -1,8 +1,9 @@
 // const sequelize = require("./index.js");
-import sequelize from "../db_connection";
-import { Model,DataTypes } from "sequelize";
+import { Sequelize,Model,DataTypes } from "sequelize";
 import { Member } from "./member";
 import { Book } from "./book";
+
+import {sequelize} from '../db_connection/config'
 export const Loan = sequelize.define(
   "Loan",
   {
@@ -29,10 +30,6 @@ export const Loan = sequelize.define(
     },
   },
   {
-    tableName:'Loans'
+    tableName:'Loan'
   },
-  {
-    timestamps: false,
-  }
-
 );

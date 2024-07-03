@@ -1,8 +1,9 @@
-import { Model,DataTypes } from "sequelize";
-import sequelize from "../db_connection";
+import { Sequelize,DataTypes } from "sequelize";
+// import sequelize from "../db_connection/index";
 import { Book } from "./book";
 import { Member } from "./member";
-
+import {sequelize} from '../db_connection/config'
+  
 export const Reservation = sequelize.define('Reservation',{
     id:{
         type:DataTypes.INTEGER,
@@ -18,10 +19,10 @@ export const Reservation = sequelize.define('Reservation',{
     },
     member_id:{
         type: DataTypes.INTEGER,
-        references: {
-            model: Member,
-            key: 'id'
-        }
+        // references: {
+        //     model: Member,
+        //     key: 'id'
+        // }
     },
     reservation_date:{
         type: DataTypes.DATE,

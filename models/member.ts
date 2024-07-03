@@ -1,7 +1,6 @@
-import { Model,DataTypes } from "sequelize";
-import sequelize from "../db_connection";
-
-
+import { Sequelize,Model,DataTypes } from "sequelize";
+import {sequelize} from '../db_connection/config'
+  
 export const Member = sequelize.define('Member',{
     id:{
         type: DataTypes.INTEGER,

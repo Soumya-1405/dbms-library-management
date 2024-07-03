@@ -1,5 +1,6 @@
-import sequelize from "../db_connection";
-import { DataTypes } from "sequelize";
+//import sequelize from "../db_connection";
+import { Sequelize,DataTypes } from "sequelize";
+import {sequelize} from '../db_connection/config'
 export const Author = sequelize.define(
     "Author",
     {
@@ -22,8 +23,5 @@ export const Author = sequelize.define(
     {
       timestamps: false,
     },
-    {
-      tableName:'Authors'
-    }
   
   );
