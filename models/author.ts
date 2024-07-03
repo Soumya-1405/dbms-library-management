@@ -1,7 +1,6 @@
-const sequelize = require("./index.js");
+import sequelize from "../db_connection";
 import { DataTypes } from "sequelize";
-export const authorModel = (sequelize: any) => {
-  return sequelize.define(
+export const Author = sequelize.define(
     "Author",
     {
       id: {
@@ -22,6 +21,9 @@ export const authorModel = (sequelize: any) => {
     },
     {
       timestamps: false,
+    },
+    {
+      tableName:'Books'
     }
+  
   );
-};
