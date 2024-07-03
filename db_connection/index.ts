@@ -6,6 +6,7 @@ import { Author } from "../models/authorModel/author";
 import { Reservation } from "../models/resevationModel/reservation";
 import {sequelize} from './config'
 import { insertBooksData } from "../models/bookModel/insertData";
+import { insertAuthorsData } from "../models/authorModel/insertData";
 // const sequelize = new Sequelize("school_db", "postgres", "1405", {
 //   host: "localhost",
 //   dialect: "postgres",
@@ -25,6 +26,10 @@ const Connection = async () => {
 
     insertBooksData();
     console.log("booksdata inserted successfully");
+
+    insertAuthorsData()
+    console.log("authorsdata inserted successfully");
+    
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }
