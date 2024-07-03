@@ -4,6 +4,7 @@ exports.Reservation = void 0;
 const sequelize_1 = require("sequelize");
 // import sequelize from "../db_connection/index";
 const book_1 = require("./book");
+const member_1 = require("./member");
 const config_1 = require("../db_connection/config");
 exports.Reservation = config_1.sequelize.define('Reservation', {
     id: {
@@ -20,10 +21,10 @@ exports.Reservation = config_1.sequelize.define('Reservation', {
     },
     member_id: {
         type: sequelize_1.DataTypes.INTEGER,
-        // references: {
-        //     model: Member,
-        //     key: 'id'
-        // }
+        references: {
+            model: member_1.Member,
+            key: 'id'
+        }
     },
     reservation_date: {
         type: sequelize_1.DataTypes.DATE,

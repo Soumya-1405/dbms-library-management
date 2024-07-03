@@ -16,8 +16,8 @@ exports.Book = config_1.sequelize.define('Book', {
     },
     authorId: {
         type: sequelize_1.DataTypes.INTEGER,
-        // references: 'Authors',
-        // referencesKey: 'id'
+        references: 'Authors',
+        referencesKey: 'id'
     },
     genre: {
         type: sequelize_1.DataTypes.STRING,
