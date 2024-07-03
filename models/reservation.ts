@@ -19,10 +19,10 @@ export const Reservation = sequelize.define('Reservation',{
     },
     member_id:{
         type: DataTypes.INTEGER,
-        // references: {
-        //     model: Member,
-        //     key: 'id'
-        // }
+        references: {
+            model: Member,
+            key: 'id'
+        }
     },
     reservation_date:{
         type: DataTypes.DATE,

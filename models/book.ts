@@ -18,8 +18,8 @@ export const Book = sequelize.define(
           },
           authorId:{
             type: DataTypes.INTEGER,
-            // references: 'Authors',
-            // referencesKey: 'id'
+            references: 'Authors',
+            referencesKey: 'id'
           },
           genre:{
             type: DataTypes.STRING,
