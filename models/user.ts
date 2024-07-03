@@ -7,7 +7,7 @@ export const userModel = (sequelize:any) => {
           // Model attributes are defined here
           firstName: {
             type: DataTypes.STRING,
-            allowNull: false,
+            // allowNull: false,
           },
           lastName: {
             type: DataTypes.STRING,
