@@ -15,30 +15,30 @@ const Connection = async () => {
   try {
     await sequelize.authenticate();
     console.log("Connection has been established successfully.");
-    // await Author.sync().then(()=>{console.log("hiii")}).catch((err:any)=>{console.log("bye")});
-    await Book.sync().then(()=>{console.log("hii")}).catch((err:any)=>{console.log("bye")});;
-    // await Member.sync().then(()=>{console.log("hiii")}).catch((err:any)=>{console.log("bye")});;
-    // await Loan.sync().then(()=>{console.log("hiii")}).catch((err:any)=>{console.log("bye")});;
-    // await Reservation.sync().then(()=>{console.log("hiii")}).catch((err:any)=>{console.log("bye")});;
-    // await Book.drop()
+    await Author.sync({force:true}).then(()=>{console.log("hiii")}).catch((err:any)=>{console.log("bye")});
+    await Book.sync({force:true}).then(()=>{console.log("hii")}).catch((err:any)=>{console.log("bye")});;
+    await Member.sync({force:true}).then(()=>{console.log("hiii")}).catch((err:any)=>{console.log("bye")});;
+    await Loan.sync().then(()=>{console.log("hiii")}).catch((err:any)=>{console.log("bye")});;
+    await Reservation.sync().then(()=>{console.log("hiii")}).catch((err:any)=>{console.log("bye")});;
+    // await Reservation.drop()
     console.log("sync succesfull");
 
     // await Book.truncate();
 
-    // insertAuthorsData()
-    // console.log("authorsdata inserted successfully");
+    insertAuthorsData()
+    console.log("authorsdata inserted successfully");
 
     insertBooksData();
     console.log("booksdata inserted successfully");
 
-    // insertMembersData()
-    // console.log("memberdata inserted successfully");
+    insertMembersData()
+    console.log("memberdata inserted successfully");
 
-    // insertLoansData()
-    // console.log("loansdata inserted successfully");
+    insertLoansData()
+    console.log("loansdata inserted successfully");
     
-    // insertReservationData()
-    // console.log("rservationdata inserted successfully");
+    insertReservationData()
+    console.log("rservationdata inserted successfully");
 
     
 
