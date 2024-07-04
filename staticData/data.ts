@@ -2,27 +2,27 @@ export const Data = {
   authorsData: [
     {
       name: "author1",
-      birth_year: "2001",
+      birth_year: 2001,
       nationality: "india",
     },
     {
       name: "author2",
-      birth_year: "2002",
+      birth_year: 2002,
       nationality: "china",
     },
     {
       name: "author3",
-      birth_year: "2003",
+      birth_year: 2003,
       nationality: "USA",
     },
     {
       name: "author4",
-      birth_year: "2004",
+      birth_year: 2004,
       nationality: "austrelia",
     },
     {
       name: "author5",
-      birth_year: "2005",
+      birth_year: 2005,
       nationality: "japan",
     },
   ],
@@ -43,14 +43,14 @@ export const Data = {
     },
     {
       title: "book3",
-      authoId: 4,
+      authoId: 3,
       genre: "gen3",
       isbn: "isbn3",
       publication_year: 2002,
     },
     {
       title: "book4",
-      authoId: 5,
+      authoId: 2,
       genre: "gen4",
       isbn: "isbn4",
       publication_year: 2003,
