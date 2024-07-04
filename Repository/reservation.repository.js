@@ -9,10 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.insertAuthorsData = void 0;
+exports.insertReservationData = void 0;
+const reservation_1 = require("../models/reservation");
 const data_1 = require("../staticData/data");
-const author_1 = require("../models/author");
-const insertAuthorsData = () => __awaiter(void 0, void 0, void 0, function* () {
-    const books = yield author_1.Author.bulkCreate(data_1.Data.authorsData);
+const insertReservationData = () => __awaiter(void 0, void 0, void 0, function* () {
+    const books = yield reservation_1.Reservation.bulkCreate(data_1.Data.reservationData);
+    console.log("insert successfully");
 });
-exports.insertAuthorsData = insertAuthorsData;
+exports.insertReservationData = insertReservationData;
