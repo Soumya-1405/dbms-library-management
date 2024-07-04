@@ -38,6 +38,5 @@ export const Loan = sequelize.define(
   },
   {
     timestamps: false,
-    tableName:'Loan'
   },
 );
