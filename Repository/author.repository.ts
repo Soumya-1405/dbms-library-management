@@ -20,10 +20,27 @@ export const updateAuthor = async (authorId: Number, updatedData: Object) => {
     const author = await Author.findByPk(authorId);
     if (author) {
       await author.update(updatedData);
+      const authors = await Author.findAll();
+      console.table(authors.map((author: any) => author.toJSON()));
     } else {
       console.log("Author not Found");
     }
   } catch (error) {
     console.log("error updating data", error);
+  }
+};
+
+export const deleteAuthor = async (authorId: Number) => {
+  try {
+    const author = await Author.findByPk(authorId);
+    if (author) {
+      await author.destroy();
+      const authors = await Author.findAll();
+      console.table(authors.map((author: any) => author.toJSON()));
+    } else {
+      console.log("Author not Found");
+    }
+  } catch (error) {
+    console.log("error deleteing data", error);
   }
 };
