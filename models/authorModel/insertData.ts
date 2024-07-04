@@ -2,7 +2,7 @@ import { title } from "process";
 import { sequelize } from "../../db_connection";
 import { Author } from "./author";
 
-const authorsData = [
+export const authorsData = [
   {
     name: "author1",
     authoId: 2,
