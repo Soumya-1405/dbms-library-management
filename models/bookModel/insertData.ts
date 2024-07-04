@@ -4,7 +4,6 @@ import { Book } from "./book";
 
 const booksData = [
   {
-    id: 1,
     title: "book1",
     authoId: 2,
     genre: "gen1",
@@ -12,7 +11,6 @@ const booksData = [
     publication_year: 2000,
   },
   {
-    id: 2,
     title: "book2",
     authoId: 3,
     genre: "gen2",
@@ -20,7 +18,6 @@ const booksData = [
     publication_year: 2001,
   },
   {
-    id: 3,
     title: "book3",
     authoId: 4,
     genre: "gen3",
@@ -28,7 +25,6 @@ const booksData = [
     publication_year: 2002,
   },
   {
-    id: 4,
     title: "book4",
     authoId: 5,
     genre: "gen4",
@@ -36,7 +32,6 @@ const booksData = [
     publication_year: 2003,
   },
   {
-    id: 5,
     title: "book5",
     authoId: 1,
     genre: "gen5",
