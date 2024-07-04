@@ -1,5 +1,3 @@
-// import { authorsData } from "../models/authorModel/insertData";
-
 export const Data = {
   authorsData: [
     {
