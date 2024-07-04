@@ -9,10 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.insertAuthorsData = void 0;
+exports.getAllAuthors = exports.insertAuthorsData = void 0;
 const data_1 = require("../staticData/data");
 const author_1 = require("../models/author");
 const insertAuthorsData = () => __awaiter(void 0, void 0, void 0, function* () {
-    const books = yield author_1.Author.bulkCreate(data_1.Data.authorsData);
+    const authors = yield author_1.Author.bulkCreate(data_1.Data.authorsData);
 });
 exports.insertAuthorsData = insertAuthorsData;
+const getAllAuthors = () => __awaiter(void 0, void 0, void 0, function* () {
+    const authors = yield author_1.Author.findAll();
+    console.table(authors.map((author) => author.toJSON()));
+});
+exports.getAllAuthors = getAllAuthors;
