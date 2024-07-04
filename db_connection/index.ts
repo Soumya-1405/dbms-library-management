@@ -39,8 +39,8 @@ const Connection = async () => {
     insertLoansData()
     console.log("loansdata inserted successfully");
 
-    insertMembersData()
-    console.log("memberdata inserted successfully");
+    // insertMembersData()
+    // console.log("memberdata inserted successfully");
 
     // insertReservationData()
     // console.log("rservationdata inserted successfully");
