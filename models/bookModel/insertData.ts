@@ -1,5 +1,5 @@
 import { title } from "process";
-import { sequelize } from "../../db_connection";
+import { sequelize } from "../..";
 import { Book } from "./book";
 
 const booksData = [
