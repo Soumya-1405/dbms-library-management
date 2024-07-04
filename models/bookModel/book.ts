@@ -1,6 +1,6 @@
 // import sequelize from "../db_connection/index";
 import { Sequelize, DataTypes } from "sequelize";
-
+import { Author } from "../authorModel/author";
 
 import {sequelize} from '../../db_connection/config'
 
@@ -18,8 +18,10 @@ export const Book = sequelize.define(
           },
           authorId:{
             type: DataTypes.INTEGER,
-            references: 'Authors',
-            referencesKey: 'id'
+            references: {
+              model: Author,
+              key: 'id'
+          }
           },
           genre:{
             type: DataTypes.STRING,
@@ -35,3 +37,7 @@ export const Book = sequelize.define(
           timestamps: false
         }
       );
+
+      Author.hasMany(Book,{foreignKey: 'authorId'});
+      Book.belongsTo(Author,{foreignKey: 'authorId'});
+
