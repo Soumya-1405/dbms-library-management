@@ -40,3 +40,9 @@ export const Loan = sequelize.define(
     timestamps: false,
   },
 );
+
+Book.hasMany(Loan,{foreignKey:"book_id"});
+Loan.belongsTo(Book,{foreignKey:"book_id"})
+
+Member.hasMany(Loan,{foreignKey:"member_id"});
+Loan.belongsTo(Member,{foreignKey:"member_id"});

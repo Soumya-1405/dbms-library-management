@@ -32,3 +32,8 @@ export const Reservation = sequelize.define('Reservation',{
     timestamps:false
 })
 
+Book.hasMany(Reservation,{foreignKey:"book_id"});
+Reservation.belongsTo(Book,{foreignKey:"book_id"});
+
+Member.hasMany(Reservation,{foreignKey:"member_id"});
+Reservation.belongsTo(Member,{foreignKey:"member_id"});
