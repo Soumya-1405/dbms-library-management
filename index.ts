@@ -8,7 +8,7 @@ import { getAllBooks, insertBooksData } from "./Repository/book.repository";
 import { deleteAuthor, getAllAuthors, insertAuthorsData, updateAuthor } from "./Repository/author.repository";
 import { deleteMember, getAllMembers, insertMembersData, updateMember } from "./Repository/member.repository";
 import { deleteLoan, getAllLoans, insertLoansData, updateLoan } from "./Repository/loan.repository";
-import { insertReservationData } from "./Repository/reservation.repository";
+import { deleteReservation, getAllReservations, insertReservationData, updateReservation } from "./Repository/reservation.repository";
 
 const createTabless = async () => {
   try {
@@ -89,6 +89,13 @@ const createTabless = async () => {
 
     insertReservationData();
     console.log("rservationdata inserted successfully");
+    getAllReservations();
+    console.log("get all Reservations");
+    updateReservation(1,{book_id:1, member_id:2, reservatio_date:new Date()})
+    console.log("updated")
+    deleteReservation(1)
+    console.log("deleted");
+
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }
