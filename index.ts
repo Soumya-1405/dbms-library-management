@@ -4,7 +4,7 @@ import { Loan } from "./models/loan";
 import { Member } from "./models/member";
 import { Author } from "./models/author";
 import { Reservation } from "./models/reservation";
-import { insertBooksData } from "./Repository/book.repository";
+import { getAllBooks, insertBooksData } from "./Repository/book.repository";
 import { deleteAuthor, getAllAuthors, insertAuthorsData, updateAuthor } from "./Repository/author.repository";
 import { insertMembersData } from "./Repository/member.repository";
 import { insertLoansData } from "./Repository/loan.repository";
@@ -63,6 +63,10 @@ const createTabless = async () => {
 
     insertBooksData();
     console.log("booksdata inserted successfully");
+    getAllBooks();
+    console.log("get all books")
+    updateAuthor(2,{title:"book3", genre: "gen8", isbn: "isbn8", publication_year: 2007});
+    console.log("updated")
 
     insertMembersData();
     console.log("memberdata inserted successfully");
