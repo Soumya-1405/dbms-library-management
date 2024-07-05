@@ -6,7 +6,7 @@ import { Author } from "./models/author";
 import { Reservation } from "./models/reservation";
 import { getAllBooks, insertBooksData } from "./Repository/book.repository";
 import { deleteAuthor, getAllAuthors, insertAuthorsData, updateAuthor } from "./Repository/author.repository";
-import { insertMembersData } from "./Repository/member.repository";
+import { deleteMember, getAllMembers, insertMembersData, updateMember } from "./Repository/member.repository";
 import { insertLoansData } from "./Repository/loan.repository";
 import { insertReservationData } from "./Repository/reservation.repository";
 
@@ -70,6 +70,12 @@ const createTabless = async () => {
 
     insertMembersData();
     console.log("memberdata inserted successfully");
+    getAllMembers()
+    console.log("get all member")
+    updateMember(4,{name:"guru", address:"add8", phone_number: "08356782899", email:"guru@example.com"})
+    console.log("updated")
+    deleteMember(4);
+    console.log("deleted");
 
     insertLoansData();
     console.log("loansdata inserted successfully");
