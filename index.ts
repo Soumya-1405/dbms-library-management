@@ -7,7 +7,7 @@ import { Reservation } from "./models/reservation";
 import { getAllBooks, insertBooksData } from "./Repository/book.repository";
 import { deleteAuthor, getAllAuthors, insertAuthorsData, updateAuthor } from "./Repository/author.repository";
 import { deleteMember, getAllMembers, insertMembersData, updateMember } from "./Repository/member.repository";
-import { insertLoansData } from "./Repository/loan.repository";
+import { deleteLoan, getAllLoans, insertLoansData, updateLoan } from "./Repository/loan.repository";
 import { insertReservationData } from "./Repository/reservation.repository";
 
 const createTabless = async () => {
@@ -79,6 +79,13 @@ const createTabless = async () => {
 
     insertLoansData();
     console.log("loansdata inserted successfully");
+    getAllLoans();
+    console.log("get all loans");
+    updateLoan(1,{book_id:1, member_id:2, loan_date: new Date(), due_date:new Date(new Date().setDate(new Date().getDate() + 14))});
+    console.log("updated")
+    deleteLoan(1)
+    console.log("deleted");
+
 
     insertReservationData();
     console.log("rservationdata inserted successfully");
