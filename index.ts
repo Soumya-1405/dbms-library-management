@@ -1,105 +1,52 @@
 import { sequelize } from "./db_connection/config";
+import router from "./Repository/author.repository";
 import { Book } from "./models/book";
 import { Loan } from "./models/loan";
 import { Member } from "./models/member";
 import { Author } from "./models/author";
 import { Reservation } from "./models/reservation";
 import { getAllBooks, insertBooksData } from "./Repository/book.repository";
-import { deleteAuthor, getAllAuthors, insertAuthorsData, updateAuthor } from "./Repository/author.repository";
+// import { deleteAuthor, getAllAuthors, insertAuthorsData, updateAuthor } from "./Repository/author.repository";
+import express from 'express';
+const app = express();
 import { deleteMember, getAllMembers, insertMembersData, updateMember } from "./Repository/member.repository";
 import { deleteLoan, getAllLoans, insertLoansData, updateLoan } from "./Repository/loan.repository";
 import { deleteReservation, getAllReservations, insertReservationData, updateReservation } from "./Repository/reservation.repository";
+app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded requests
+app.use(express.json()); // Middleware to parse JSON requests
 
-const createTabless = async () => {
+async function initializeDatabase() {
   try {
     await sequelize.authenticate();
-    console.log("Connection has been established successfully.");
-    await Author.sync({ force: true })
-      .then(() => {
-        console.log("hiii");
-      })
-      .catch((err: any) => {
-        console.log("bye");
-      });
-    await Book.sync({ force: true })
-      .then(() => {
-        console.log("hii");
-      })
-      .catch((err: any) => {
-        console.log("bye");
-      });
-    await Member.sync({ force: true })
-      .then(() => {
-        console.log("hiii");
-      })
-      .catch((err: any) => {
-        console.log("bye");
-      });
-    await Loan.sync({ force: true })
-      .then(() => {
-        console.log("hiii");
-      })
-      .catch((err: any) => {
-        console.log("bye");
-      });
-    await Reservation.sync({ force: true })
-      .then(() => {
-        console.log("hiii");
-      })
-      .catch((err: any) => {
-        console.log("bye");
-      });
-    // await Reservation.drop()
-    console.log("sync succesfull");
-
-    insertAuthorsData();
-    console.log("authorsdata inserted successfully");
-    getAllAuthors();
-    console.log("get all authors ")
-    updateAuthor(1, {name:"author8",birth_year:2001, nationality:"india"})
-    console.log("updated")
-    deleteAuthor(1)
-    console.log("deleted");
-
-    insertBooksData();
-    console.log("booksdata inserted successfully");
-    getAllBooks();
-    console.log("get all books")
-    updateAuthor(2,{title:"book3", genre: "gen8", isbn: "isbn8", publication_year: 2007});
-    console.log("updated")
-
-    insertMembersData();
-    console.log("memberdata inserted successfully");
-    getAllMembers()
-    console.log("get all member")
-    updateMember(4,{name:"guru", address:"add8", phone_number: "08356782899", email:"guru@example.com"})
-    console.log("updated")
-    deleteMember(4);
-    console.log("deleted");
-
-    insertLoansData();
-    console.log("loansdata inserted successfully");
-    getAllLoans();
-    console.log("get all loans");
-    updateLoan(1,{book_id:1, member_id:2, loan_date: new Date(), due_date:new Date(new Date().setDate(new Date().getDate() + 14))});
-    console.log("updated")
-    deleteLoan(1)
-    console.log("deleted");
-
-
-    insertReservationData();
-    console.log("rservationdata inserted successfully");
-    getAllReservations();
-    console.log("get all Reservations");
-    updateReservation(1,{book_id:1, member_id:2, reservatio_date:new Date()})
-    console.log("updated")
-    deleteReservation(1)
-    console.log("deleted");
-
+    console.log('Connection has been established successfully.');
+  
+    await sequelize.sync({alter: true});
+    console.log('All models were synchronized successfully.');
   } catch (error) {
-    console.error("Unable to connect to the database:", error);
+    console.error('Unable to connect to the database or sync models:', error);
   }
-};
+}
 
-createTabless();
-export { sequelize };
+// To verify that the tables were created successfully
+async function listTables() {
+  try {
+    const tables = await sequelize.getQueryInterface().showAllSchemas();
+    console.log(tables);
+  } catch (error) {
+    console.error('Error listing tables:', error);
+  }
+}
+
+initializeDatabase().then(() => { listTables(); });
+
+// Ping route
+app.use('/api/ping', ((req, res) => {  
+  res.json({ message: 'pong' });
+}));
+
+app.use('/api/authors',router);
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+console.log(`Server is running on port ${PORT}`);
+});
