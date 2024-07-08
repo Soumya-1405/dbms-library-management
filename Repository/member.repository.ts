@@ -1,3 +1,5 @@
+import express from 'express';
+const memberRouter = express.Router();
 import { Member } from "../models/member";
 import { Data } from "../staticData/data";
 export const insertMembersData = async () => {
@@ -5,42 +7,65 @@ export const insertMembersData = async () => {
     console.log("insert succesffullt");
   };
 
-  export const getAllMembers = async () => {
+  memberRouter.get('/', async (req, res) => {
     try {
-      const authors = await Member.findAll();
-      console.table(authors.map((author: any) => author.toJSON()));
-    } catch (error) {
-      console.log("error fetchiing authors", error);
+        // Fetch all members include books
+        const members = await Member.findAll();
+        if (members.length === 0) return res.status(404).json({ message: "No Authors Found" });
+        res.json({Authors: members});
+    } catch (err:any) {
+        res.status(500).json({message: err.message});
     }
-  };
-  
-  export const updateMember = async (authorId: Number, updatedData: Object) => {
+  });
+  // Get one member
+  memberRouter.get('/:id', async (req, res) => {
     try {
-      const author = await Member.findByPk(authorId);
-      if (author) {
-        await author.update(updatedData);
-        const authors = await Member.findAll();
-        console.table(authors.map((author: any) => author.toJSON()));
-      } else {
-        console.log("Member not Found");
-      }
-    } catch (error) {
-      console.log("error updating data", error);
+        const member = await Member.findByPk(req.params.id);
+        if (member === null) {
+            return res.status(404).json({ message: "Member Not Found" });
+        }
+        res.json(member);
+    } catch (err:any) {
+        res.status(500).json({message: err.message});
     }
-  };
+  });
   
-  export const deleteMember = async (authorId: Number) => {
+  // Create a new member
+  memberRouter.post('/', async (req, res) => {
     try {
-      const author = await Member.findByPk(authorId);
-      if (author) {
-        await author.destroy();
-        const authors = await Member.findAll();
-        console.table(authors.map((author: any) => author.toJSON()));
-      } else {
-        console.log("Member not Found");
-      }
-    } catch (error) {
-      console.log("error deleteing data", error);
+        const member = await Member.create(req.body);
+        res.json(member);
+    } catch (err:any) {
+        res.status(400).json({message: err.message});
     }
-  };
+  });
   
+  // Update an member
+  memberRouter.put('/:id', async (req, res) => {
+    try {
+        const [updated] = await Member.update(req.body, {where: {id: req.params.id}});
+        if (updated) {
+            const updatedAuthor = await Member.findByPk(req.params.id);
+            res.json(updatedAuthor);
+        } else {
+            res.status(404).json({ message: "Member Not Found" });
+        }
+    } catch (err:any) {
+        res.status(400).json({message: err.message});
+    }
+  });
+  // Delete an member
+  memberRouter.delete('/:id', async (req, res) => {
+    try {
+        const deleted = await Member.destroy({where: {id: req.params.id}});
+        if (deleted) {
+            res.json({ message: "Member Deleted" });
+        } else {
+            res.status(404).json({ message: "Member Not Found" });
+        }
+    } catch (err:any) {
+        res.status(500).json({message: err.message});
+    }
+  });
+  
+  export default memberRouter;
