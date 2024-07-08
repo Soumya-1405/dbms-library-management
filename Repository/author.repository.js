@@ -8,55 +8,83 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteAuthor = exports.updateAuthor = exports.getAllAuthors = exports.insertAuthorsData = void 0;
+exports.insertAuthorsData = void 0;
+const express_1 = __importDefault(require("express"));
+const router = express_1.default.Router();
 const data_1 = require("../staticData/data");
 const author_1 = require("../models/author");
 const insertAuthorsData = () => __awaiter(void 0, void 0, void 0, function* () {
     const authors = yield author_1.Author.bulkCreate(data_1.Data.authorsData);
 });
 exports.insertAuthorsData = insertAuthorsData;
-const getAllAuthors = () => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        // Fetch all authors include books
         const authors = yield author_1.Author.findAll();
-        console.table(authors.map((author) => author.toJSON()));
+        if (authors.length === 0)
+            return res.status(404).json({ message: "No Authors Found" });
+        res.json({ Authors: authors });
     }
-    catch (error) {
-        console.log("error fetchiing authors", error);
+    catch (err) {
+        res.status(500).json({ message: err.message });
     }
-});
-exports.getAllAuthors = getAllAuthors;
-const updateAuthor = (authorId, updatedData) => __awaiter(void 0, void 0, void 0, function* () {
+}));
+// Get one author
+router.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const author = yield author_1.Author.findByPk(authorId);
-        if (author) {
-            yield author.update(updatedData);
-            const authors = yield author_1.Author.findAll();
-            console.table(authors.map((author) => author.toJSON()));
+        const author = yield author_1.Author.findByPk(req.params.id);
+        if (author === null) {
+            return res.status(404).json({ message: "Author Not Found" });
+        }
+        res.json(author);
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}));
+// Create a new author
+router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const author = yield author_1.Author.create(req.body);
+        res.json(author);
+    }
+    catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}));
+// Update an author
+router.put('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const [updated] = yield author_1.Author.update(req.body, { where: { id: req.params.id } });
+        if (updated) {
+            const updatedAuthor = yield author_1.Author.findByPk(req.params.id);
+            res.json(updatedAuthor);
         }
         else {
-            console.log("Author not Found");
+            res.status(404).json({ message: "Author Not Found" });
         }
     }
-    catch (error) {
-        console.log("error updating data", error);
+    catch (err) {
+        res.status(400).json({ message: err.message });
     }
-});
-exports.updateAuthor = updateAuthor;
-const deleteAuthor = (authorId) => __awaiter(void 0, void 0, void 0, function* () {
+}));
+// Delete an author
+router.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const author = yield author_1.Author.findByPk(authorId);
-        if (author) {
-            yield author.destroy();
-            const authors = yield author_1.Author.findAll();
-            console.table(authors.map((author) => author.toJSON()));
+        const deleted = yield author_1.Author.destroy({ where: { id: req.params.id } });
+        if (deleted) {
+            res.json({ message: "Author Deleted" });
         }
         else {
-            console.log("Author not Found");
+            res.status(404).json({ message: "Author Not Found" });
         }
     }
-    catch (error) {
-        console.log("error deleteing data", error);
+    catch (err) {
+        res.status(500).json({ message: err.message });
     }
-});
-exports.deleteAuthor = deleteAuthor;
+}));
+exports.default = router;
