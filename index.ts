@@ -1,6 +1,7 @@
 import { sequelize } from "./db_connection/config";
 import router from "./Repository/author.repository";
 import bookRouter from "./Repository/book.repository";
+import loanRouter from "./Repository/loan.repository";
 import { Book } from "./models/book";
 import { Loan } from "./models/loan";
 import { Member } from "./models/member";
@@ -10,9 +11,10 @@ import { Reservation } from "./models/reservation";
 // import { deleteAuthor, getAllAuthors, insertAuthorsData, updateAuthor } from "./Repository/author.repository";
 import express from 'express';
 const app = express();
-import { deleteMember, getAllMembers, insertMembersData, updateMember } from "./Repository/member.repository";
-import { deleteLoan, getAllLoans, insertLoansData, updateLoan } from "./Repository/loan.repository";
+// import { deleteMember, getAllMembers, insertMembersData, updateMember } from "./Repository/member.repository";
+// import { deleteLoan, getAllLoans, insertLoansData, updateLoan } from "./Repository/loan.repository";
 import { deleteReservation, getAllReservations, insertReservationData, updateReservation } from "./Repository/reservation.repository";
+import memberRouter from "./Repository/member.repository";
 app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded requests
 app.use(express.json()); // Middleware to parse JSON requests
 
@@ -47,6 +49,8 @@ app.use('/api/pong', ((req, res) => {
 
 app.use('/api/authors',router);
 app.use('/api/books',bookRouter)
+app.use('/api/loans',loanRouter)
+app.use('/api/members',memberRouter)
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
