@@ -1,47 +1,71 @@
 import { Book } from "../models/book";
 import { Data } from "../staticData/data";
-
+import express from 'express';
+const bookRouter = express.Router();
 export const insertBooksData = async () => {
     const books = await Book.bulkCreate(Data.booksData);
     console.log("insert successfully");
   };
   
-  export const getAllBooks = async () => {
+  bookRouter.get('/', async (req, res) => {
     try {
-      const authors = await Book.findAll();
-      console.table(authors.map((author: any) => author.toJSON()));
-    } catch (error) {
-      console.log("error fetchiing authors", error);
+        // Fetch all books include books
+        const books = await Book.findAll();
+        if (books.length === 0) return res.status(404).json({ message: "No Books Found" });
+        res.json({Authors: books});
+    } catch (err:any) {
+        res.status(500).json({message: err.message});
     }
-  };
-  
-  export const updateBook = async (authorId: Number, updatedData: Object) => {
+  });
+  // Get one book
+  bookRouter.get('/:id', async (req, res) => {
     try {
-      const author = await Book.findByPk(authorId);
-      if (author) {
-        await author.update(updatedData);
-        const authors = await Book.findAll();
-        console.table(authors.map((author: any) => author.toJSON()));
-      } else {
-        console.log( "Book not Found");
-      }
-    } catch (error) {
-      console.log("error updating data", error);
+        const book = await Book.findByPk(req.params.id);
+        if (book === null) {
+            return res.status(404).json({ message: "Book Not Found" });
+        }
+        res.json(book);
+    } catch (err:any) {
+        res.status(500).json({message: err.message});
     }
-  };
+  });
   
-  export const deleteBook = async (authorId: Number) => {
+  // Create a new book
+  bookRouter.post('/', async (req, res) => {
     try {
-      const author = await Book.findByPk(authorId);
-      if (author) {
-        await author.destroy();
-        const authors = await Book.findAll();
-        console.table(authors.map((author: any) => author.toJSON()));
-      } else {
-        console.log("Book not Found");
-      }
-    } catch (error) {
-      console.log("error deleteing data", error);
+        const book = await Book.create(req.body);
+        res.json(book);
+    } catch (err:any) {
+        res.status(400).json({message: err.message});
     }
-  };
+  });
   
+  // Update an book
+  bookRouter.put('/:id', async (req, res) => {
+    try {
+        const [updated] = await Book.update(req.body, {where: {id: req.params.id}});
+        if (updated) {
+            const updatedAuthor = await Book.findByPk(req.params.id);
+            res.json(updatedAuthor);
+        } else {
+            res.status(404).json({ message: "Book Not Found" });
+        }
+    } catch (err:any) {
+        res.status(400).json({message: err.message});
+    }
+  });
+  // Delete an book
+  bookRouter.delete('/:id', async (req, res) => {
+    try {
+        const deleted = await Book.destroy({where: {id: req.params.id}});
+        if (deleted) {
+            res.json({ message: "Book Deleted" });
+        } else {
+            res.status(404).json({ message: "Book Not Found" });
+        }
+    } catch (err:any) {
+        res.status(500).json({message: err.message});
+    }
+  });
+  
+  export default bookRouter;
