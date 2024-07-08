@@ -1,11 +1,12 @@
 import { sequelize } from "./db_connection/config";
 import router from "./Repository/author.repository";
+import bookRouter from "./Repository/book.repository";
 import { Book } from "./models/book";
 import { Loan } from "./models/loan";
 import { Member } from "./models/member";
 import { Author } from "./models/author";
 import { Reservation } from "./models/reservation";
-import { getAllBooks, insertBooksData } from "./Repository/book.repository";
+// import { getAllBooks, insertBooksData } from "./Repository/book.repository";
 // import { deleteAuthor, getAllAuthors, insertAuthorsData, updateAuthor } from "./Repository/author.repository";
 import express from 'express';
 const app = express();
@@ -40,11 +41,12 @@ async function listTables() {
 initializeDatabase().then(() => { listTables(); });
 
 // Ping route
-app.use('/api/ping', ((req, res) => {  
+app.use('/api/pong', ((req, res) => {  
   res.json({ message: 'pong' });
 }));
 
 app.use('/api/authors',router);
+app.use('/api/books',bookRouter)
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
