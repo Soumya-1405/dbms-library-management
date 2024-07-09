@@ -8,8 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteReservation = exports.updateReservation = exports.getAllReservations = exports.insertReservationData = void 0;
+exports.insertReservationData = void 0;
+const express_1 = __importDefault(require("express"));
+const reservationRouter = express_1.default.Router();
 const reservation_1 = require("../models/reservation");
 const data_1 = require("../staticData/data");
 const insertReservationData = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -17,47 +22,70 @@ const insertReservationData = () => __awaiter(void 0, void 0, void 0, function* 
     console.log("insert successfully");
 });
 exports.insertReservationData = insertReservationData;
-const getAllReservations = () => __awaiter(void 0, void 0, void 0, function* () {
+reservationRouter.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const authors = yield reservation_1.Reservation.findAll();
-        console.table(authors.map((author) => author.toJSON()));
+        // Fetch all reservations include books
+        const reservations = yield reservation_1.Reservation.findAll();
+        if (reservations.length === 0)
+            return res.status(404).json({ message: "No Reservations Found" });
+        res.json({ Reservations: reservations });
     }
-    catch (error) {
-        console.log("error fetchiing authors", error);
+    catch (err) {
+        res.status(500).json({ message: err.message });
     }
-});
-exports.getAllReservations = getAllReservations;
-const updateReservation = (authorId, updatedData) => __awaiter(void 0, void 0, void 0, function* () {
+}));
+// Get one reservation
+reservationRouter.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const author = yield reservation_1.Reservation.findByPk(authorId);
-        if (author) {
-            yield author.update(updatedData);
-            const authors = yield reservation_1.Reservation.findAll();
-            console.table(authors.map((author) => author.toJSON()));
+        const reservation = yield reservation_1.Reservation.findByPk(req.params.id);
+        if (reservation === null) {
+            return res.status(404).json({ message: "Reservation Not Found" });
+        }
+        res.json(reservation);
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}));
+// Create a new reservation
+reservationRouter.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const reservation = yield reservation_1.Reservation.create(req.body);
+        res.json(reservation);
+    }
+    catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}));
+// Update an reservation
+reservationRouter.put('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const [updated] = yield reservation_1.Reservation.update(req.body, { where: { id: req.params.id } });
+        if (updated) {
+            const updatedAuthor = yield reservation_1.Reservation.findByPk(req.params.id);
+            res.json(updatedAuthor);
         }
         else {
-            console.log("Reservation not Found");
+            res.status(404).json({ message: "Reservation Not Found" });
         }
     }
-    catch (error) {
-        console.log("error updating data", error);
+    catch (err) {
+        res.status(400).json({ message: err.message });
     }
-});
-exports.updateReservation = updateReservation;
-const deleteReservation = (authorId) => __awaiter(void 0, void 0, void 0, function* () {
+}));
+// Delete an reservation
+reservationRouter.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const author = yield reservation_1.Reservation.findByPk(authorId);
-        if (author) {
-            yield author.destroy();
-            const authors = yield reservation_1.Reservation.findAll();
-            console.table(authors.map((author) => author.toJSON()));
+        const deleted = yield reservation_1.Reservation.destroy({ where: { id: req.params.id } });
+        if (deleted) {
+            res.json({ message: "Reservation Deleted" });
         }
         else {
-            console.log("Author not Found");
+            res.status(404).json({ message: "Reservation Not Found" });
         }
     }
-    catch (error) {
-        console.log("error deleteing data", error);
+    catch (err) {
+        res.status(500).json({ message: err.message });
     }
-});
-exports.deleteReservation = deleteReservation;
+}));
+exports.default = reservationRouter;
