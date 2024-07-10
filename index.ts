@@ -25,7 +25,13 @@ async function initializeDatabase() {
     await sequelize.authenticate();
     console.log('Connection has been established successfully.');
     // await Loan.destroy()
-    await sequelize.sync({force:true});
+    // await sequelize.sync({force:true});
+    // await Book.drop()
+    await Author.sync({force:true})
+    await Book.sync({force:true})
+    await Member.sync({force:true})
+    await Loan.sync({force:true})
+    await Reservation.sync({force:true})
     insertAuthorsData()
     insertBooksData();
     insertMembersData();
@@ -33,6 +39,7 @@ async function initializeDatabase() {
     insertReservationData();
     // await Reservation.sync({force:true});
     // insertReservationData();
+    // await Author.drop();
     console.log('All models were synchronized successfully.');
   } catch (error) {
     console.error('Unable to connect to the database or sync models:', error);
@@ -56,11 +63,11 @@ app.use('/api/pong', ((req, res) => {
   res.json({ message: 'pong' });
 }));
 
-app.use('/api/authors',router);
-app.use('/api/books',bookRouter)
-app.use('/api/loans',loanRouter)
-app.use('/api/members',memberRouter)
-app.use('/api/reservations',reservationRouter)
+// app.use('/api/authors',router);
+// app.use('/api/books',bookRouter)
+// app.use('/api/loans',loanRouter)
+// app.use('/api/members',memberRouter)
+// app.use('/api/reservations',reservationRouter)
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
