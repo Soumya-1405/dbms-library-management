@@ -18,9 +18,8 @@ const returnBook = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const books = yield book_1.Book.findAll({ where: { authorId: author.id } });
     // console.log("books",Book);
     console.table(books.map((book) => book.toJSON()));
-    // return books;
 });
-// returnBook(1)
+returnBook(1);
 const combinedTable = () => __awaiter(void 0, void 0, void 0, function* () {
     const authBooks = yield author_1.Author.findAll({ include: book_1.Book });
     console.log(authBooks);
